@@ -1,19 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Container from "@/components/Container";
-import TransactionForm from "@/components/TransactionForm";
-import TransactionList from "@/components/TransactionList";
-import TransactionChart from "@/components/TransactionChart";
-import EmptyState from "@/components/EmptyState";
-import { getTransactions, deleteTransaction } from "@/services/api";
+import Container from "../../components/Conatiner";
+import TransactionForm from "../../components/TransactionForm";
+import TransactionList from "../../components/TransactionList";
+import TransactionChart from "../../components/TransactionChart";
+import EmptyState from "../../components/EmptyState";
+import { getAllTransactions, deleteTransaction } from "../../services/api.js";
 
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
 
   const fetchTransactions = async () => {
     try {
-      const res = await getTransactions();
+      const res = await getAllTransactions();
       setTransactions(res.data.data);
     } catch (err) {
       console.error("Failed to fetch transactions", err.message);

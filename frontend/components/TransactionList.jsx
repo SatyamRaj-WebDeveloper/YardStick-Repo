@@ -1,6 +1,6 @@
 'use client';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "../src/components/ui/button";
+import { Card, CardContent } from "../src/components/ui/card";
 import { Trash2 } from "lucide-react";
 import { deleteTransaction } from "../services/api";
 

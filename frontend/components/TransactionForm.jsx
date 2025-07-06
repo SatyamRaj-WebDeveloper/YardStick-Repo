@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { addTransaction } from '../services/api';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { addTransaction } from '../services/api.js';
+import { Input } from "../src/components/ui/input";
+import { Button } from "../src/components/ui/button";
+import { Card, CardContent } from "../src/components/ui/card";
 
 export default function TransactionForm({ onAdd }) {
   const [formData, setFormData] = useState({
