@@ -4,7 +4,7 @@ import { Card, CardContent } from "../src/components/ui/card";
 import { Trash2 } from "lucide-react";
 import { deleteTransaction } from "../services/api";
 
-export default function TransactionList({ transactions, onDelete }) {
+export default function TransactionList({ transactions, onDelete ,onEdit }) {
   return (
     <div className="space-y-3">
       {transactions.map((txn) => (
@@ -17,13 +17,17 @@ export default function TransactionList({ transactions, onDelete }) {
               </p>
               <p className="text-xs">{txn.date.slice(0, 10)}</p>
             </div>
-            <Button
+            <div className="flex justify-center items-center mx-2 ">
+             <Button
               variant="destructive"
               onClick={() => onDelete(txn._id)}
               size="icon"
             >
               <Trash2 className="w-4 h-4" />
             </Button>
+              <Button onClick={() => onEdit(txn)} className='mx-2'>Edit</Button>
+            </div>
+          
           </CardContent>
         </Card>
       ))}

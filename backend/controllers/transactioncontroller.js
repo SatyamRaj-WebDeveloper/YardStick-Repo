@@ -28,7 +28,7 @@ export const updateTransaction = async(req,res) =>{
   let id = req.params.id;
   let data = req.body;
   try {
-    const UpdatedTransaction = await Transaction.findByIdUpdate(id , data  , {new:true});
+    const UpdatedTransaction = await Transaction.findByIdAndUpdate(id , data  , {new:true});
     return res.status(200).json({message:"Transaction Updated Successfully" , data:UpdatedTransaction});
   } catch (error) {
     console.log("Error in Updating Transaction");

@@ -10,6 +10,7 @@ import { getAllTransactions, deleteTransaction } from "../../services/api.js";
 
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
+  const [editTxn , setEditTxn] = useState(null)
 
   const fetchTransactions = async () => {
     try {
@@ -27,6 +28,17 @@ export default function HomePage() {
   const handleAdd = (newTxn) => {
     setTransactions((prev) => [newTxn, ...prev]);
   };
+  const handleEdit = (txn) => {
+    setEditTxn(txn);
+  };
+  
+    const handleUpdate = (updatedTxn) => {
+    const updatedList = transactions.map((txn) =>
+      txn._id === updatedTxn._id ? updatedTxn : txn
+    );
+    setTransactions(updatedList);
+    setEditTxn(null);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -40,12 +52,15 @@ export default function HomePage() {
   return (
     <Container>
       <h1 className="text-2xl font-bold mb-6">💰 Personal Finance Visualizer</h1>
-      <TransactionForm onAdd={handleAdd} />
+      <TransactionForm  onAdd={handleAdd}
+  editData={editTxn}
+  onUpdate={handleUpdate}
+  onCancelEdit={() => setEditTxn(null)}/>
       {transactions.length === 0 ? (
         <EmptyState />
       ) : (
         <>
-          <TransactionList transactions={transactions} onDelete={handleDelete} />
+          <TransactionList transactions={transactions} onDelete={handleDelete} onEdit={handleEdit}/>
           <TransactionChart transactions={transactions} />
         </>
       )}

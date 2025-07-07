@@ -1,44 +1,115 @@
 'use client';
-import { useState } from 'react';
-import { addTransaction } from '../services/api.js';
-import { Input } from "../src/components/ui/input";
-import { Button } from "../src/components/ui/button";
-import { Card, CardContent } from "../src/components/ui/card";
 
-export default function TransactionForm({ onAdd }) {
+import React, { useState, useEffect } from 'react';
+import { Input } from '../src/components/ui/input';
+import { Button } from '../src/components/ui/button';
+import { toast } from 'sonner';
+import { addTransaction, updateTransaction } from '../services/api.js';
+
+const TransactionForm = ({ onAdd, editData, onUpdate, onCancelEdit }) => {
   const [formData, setFormData] = useState({
     amount: '',
     date: '',
     description: '',
-    category: ''
+    category: '',
   });
 
+  useEffect(() => {
+    if (editData && typeof editData === 'object') {
+      setFormData({
+        amount: editData.amount || '',
+        date: editData.date ? editData.date.split('T')[0] : '',
+        description: editData.description || '',
+        category: editData.category || '',
+      });
+    }
+  }, [editData]);
+
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.amount || !formData.date || !formData.description) {
+      toast.error('Please fill all required fields.');
+      return;
+    }
+
     try {
-      const res = await addTransaction(formData);
-      onAdd(res.data);
-      setFormData({ amount: '', date: '', description: '', category: '' });
+      if (editData && editData._id) {
+        const res = await updateTransaction(editData._id, formData);
+        toast.success('Transaction updated successfully!');
+        onUpdate(res.data.data);
+      } else {
+        const res = await addTransaction(formData);
+        toast.success('Transaction added!');
+        onAdd(res.data);
+      }
+
+      // Reset form
+      setFormData({
+        amount: '',
+        date: '',
+        description: '',
+        category: '',
+      });
+
+      if (onCancelEdit) onCancelEdit();
+
     } catch (error) {
-      console.error("Add failed:", error.message);
+      console.error("Submit error:", error);
+      toast.error("Something went wrong. Try again.");
     }
   };
 
   return (
-    <Card className="mb-4">
-      <CardContent className="p-4 space-y-4">
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <Input name="amount" type="number" placeholder="Amount" value={formData.amount} onChange={handleChange} required />
-          <Input name="date" type="date" value={formData.date} onChange={handleChange} required />
-          <Input name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-          <Input name="category" placeholder="Category" value={formData.category} onChange={handleChange} />
-          <Button type="submit">Add Transaction</Button>
-        </form>
-      </CardContent>
-    </Card>
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
+      <Input
+        type="number"
+        name="amount"
+        placeholder="Amount"
+        value={formData.amount}
+        onChange={handleChange}
+        required
+      />
+      <Input
+        type="date"
+        name="date"
+        placeholder="Date"
+        value={formData.date}
+        onChange={handleChange}
+        required
+      />
+      <Input
+        type="text"
+        name="description"
+        placeholder="Description"
+        value={formData.description}
+        onChange={handleChange}
+        required
+      />
+      <Input
+        type="text"
+        name="category"
+        placeholder="Category"
+        value={formData.category}
+        onChange={handleChange}
+      />
+
+      <div className="col-span-full flex gap-2">
+        <Button type="submit">
+          {editData && editData._id ? 'Update Transaction' : 'Add Transaction'}
+        </Button>
+        {editData && (
+          <Button type="button" variant="outline" onClick={onCancelEdit}>
+            Cancel
+          </Button>
+        )}
+      </div>
+    </form>
   );
-}
+};
+
+export default TransactionForm;
