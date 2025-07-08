@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://yardstick-repo-1.onrender.com',
+  baseURL: 'https://yardstick-repo-1.onrender.com/api/v1/transaction',
 });
 export const addTransaction = (data) => API.post('/addTransaction', data);
 
