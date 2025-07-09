@@ -1,111 +1,76 @@
 # 💰 Personal Finance Visualizer
 
-A simple and elegant web application that allows users to track their income and expenses visually. Built as part of my internship assignment, the app includes the ability to add, update, delete, and categorize financial transactions.
+A full-stack web application to track and visualize your personal income and expenses. Built using **Next.js (App Router)**, **MongoDB**, and **Express.js** — styled with **ShadCN UI** and visualized with **Recharts**.
 
 ---
 
-## 🚀 Features
+## 🌟 Features
 
-- ✅ Add new transactions (income or expense)
-- 🔄 Update existing transactions
-- ❌ Delete transactions
-- 📅 Date-wise tracking
-- 📊 Visual representation using charts
-- 💡 Built with ShadCN UI, Next.js, MongoDB, and Recharts
+### ✅ Stage 1: Transaction Tracker
+- Add, edit, and delete transactions
+- Store details like amount, date, description, and category
+- All data saved to MongoDB
+
+### ✅ Stage 2: Categories
+- Filter transactions by category
+- View category-wise spending summary
+- Visualize category data using **Pie Chart**
+- View monthly trends using a **Bar Chart**
+
+### ✅ Stage 3: Budgeting
+- Set a monthly budget limit
+- Track real-time spending vs. budget
+- See a warning when budget is exceeded
+- Visual **budget progress bar**
 
 ---
 
-## 📁 Project Structure
-YardStick/
-├── backend/ # Express + MongoDB backend
+## 🛠️ Tech Stack
+
+| Frontend         | Backend          | Database    | UI Library     | Charts        |
+|------------------|------------------|-------------|----------------|---------------|
+| Next.js 14 (App Router) | Node.js + Express.js | MongoDB Atlas | ShadCN UI      | Recharts      |
+
+---
+
+## 📂 Folder Structure
+
+project-root/
+├── backend/
 │ ├── controllers/
 │ ├── models/
 │ ├── routes/
-│ ├── index.js
-│ └── ...
-├── frontend/ # Next.js frontend
+│ └── index.js
+├── frontend/
 │ ├── app/
+│ │ └── page.jsx
 │ ├── components/
-│ ├── services/ # api.js to call backend
-│ ├── ui/ # ShadCN UI components
-│ └── ...
+│ │ ├── TransactionForm.jsx
+│ │ ├── TransactionList.jsx
+│ │ ├── CategorySummary.jsx
+│ │ ├── CategoryPieChart.jsx
+│ │ ├── TransactionChart.jsx
+│ │ ├── BudgetBar.jsx
+│ │ └── EmptyState.jsx
+│ └── services/
+│ └── api.js
+
+
 
 ---
 
-## 🛠️ Tech Stack
+## 🔗 Live URLs
 
-- **Frontend**: Next.js 14, React, TailwindCSS, ShadCN, Axios, Recharts
-- **Backend**: Express.js, MongoDB, Mongoose
-- **Deployment**: 
-  - Frontend: Vercel
-  - Backend: Render
+- 🌐 **Frontend (Vercel)**: [https://your-vercel-url.vercel.app](https://yard-stick-repo.vercel.app/)
+- 🔗 **Backend (Render)**: [https://your-backend-url.onrender.com](https://yardstick-repo-1.onrender.com)
 
----
-
-## 🔗 Live Demo
-
-- 🔥 Frontend: [https://your-vercel-url.vercel.app](
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14, React, TailwindCSS, ShadCN, Axios, Recharts
-- **Backend**: Express.js, MongoDB, Mongoose
-- **Deployment**: 
-  - Frontend: Vercel
-  - Backend: Render
+> Make sure your frontend `api.js` uses the correct base URL.
 
 ---
 
-## 🔗 Live Demo
+## 🚀 Getting Started Locally
 
-- 🔥 Frontend: [https://your-vercel-url.vercel.app]((https://yard-stick-repo.vercel.app/))
-- ⚙️ Backend: [https://yardstick-repo-1.onrender.com](https://yardstick-repo-1.onrender.com)
-
----
-
-## 🧪 API Endpoints
-
-All endpoints are prefixed with `/api/v1/transaction`
-
-| Method | Endpoint                     | Description              |
-|--------|------------------------------|--------------------------|
-| POST   | `/addTransaction`            | Add new transaction      |
-| GET    | `/getTransactions`           | Get all transactions     |
-| PUT    | `/Update/:id`                | Update a transaction     |
-| DELETE | `/deleteTransaction/:id`     | Delete a transaction     |
-
----
-
-## 🧰 Getting Started Locally
-
-### Backend
-```bash
-cd backend
-npm install
-node index.js
-)
-- ⚙️ Backend: [https://yardstick-repo-1.onrender.com](https://yardstick-repo-1.onrender.com)
-
----
-
-## 🧪 API Endpoints
-
-All endpoints are prefixed with `/api/v1/transaction`
-
-| Method | Endpoint                     | Description              |
-|--------|------------------------------|--------------------------|
-| POST   | `/addTransaction`            | Add new transaction      |
-| GET    | `/getTransactions`           | Get all transactions     |
-| PUT    | `/Update/:id`                | Update a transaction     |
-| DELETE | `/deleteTransaction/:id`     | Delete a transaction     |
-
----
-
-## 🧰 Getting Started Locally
-
-### Backend
-```bash
-cd backend
-npm install
-node index.js
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
